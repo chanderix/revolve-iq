@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>8 Clocks — revolve.iq</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.clocks-grid {
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:1.5px;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;
+  margin-top:3rem;
+}
+.clock {
+  padding:1.8rem 1.6rem;background:var(--card-bg);
+  transition:background .25s;position:relative;
+  border-right:1.5px solid var(--border);border-bottom:1.5px solid var(--border);
+}
+.clock:hover { background:var(--card-hover); }
+.clock:nth-child(4n) { border-right:none; }
+.clock:nth-child(n+5) { border-bottom:none; }
+.clock-num { font-family:'DM Mono',monospace;font-size:2.2rem;font-weight:500;color:rgba(0,168,134,.25);line-height:1;margin-bottom:.8rem; }
+.clock-name { font-size:.92rem;font-weight:600;color:#fff;margin-bottom:.35rem; }
+.clock-win { font-family:'DM Mono',monospace;font-size:.67rem;color:var(--teal);letter-spacing:.06em;margin-bottom:.8rem; }
+.clock-desc { font-size:.8rem;color:var(--text-muted);line-height:1.55; }
+.ck-badge { position:absolute;top:1rem;right:1rem; }
+
+/* MASTER CLOCK */
+.clock.master { background:rgba(0,168,134,.05);border-color:rgba(0,168,134,.3) !important; }
+.clock.master .clock-num { color:rgba(0,168,134,.5); }
+
+/* PJM CLOCK */
+.clock.pjm { background:rgba(233,113,50,.04);border-color:rgba(233,113,50,.28) !important; }
+.clock.pjm .clock-num { color:rgba(233,113,50,.4); }
+
+/* PJM MODULE */
+.pjm-module {
+  display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:3rem;
+}
+.pjm-left { padding:2rem;background:rgba(233,113,50,.06);border:1px solid rgba(233,113,50,.25);border-radius:12px; }
+.pjm-left h3 { font-size:1rem;margin-bottom:.6rem; }
+.pjm-left p { font-size:.85rem;color:var(--text-muted);line-height:1.65;margin-bottom:1.5rem; }
+.pjm-stats { display:flex;gap:1.5rem;flex-wrap:wrap; }
+.pjm-stat .num { font-family:'DM Mono',monospace;font-size:1.6rem;font-weight:500;color:var(--amber);line-height:1; }
+.pjm-stat .lbl { font-size:.7rem;color:var(--text-dim);margin-top:.3rem; }
+
+.pjm-right { padding:2rem;background:rgba(15,158,213,.06);border:1px solid rgba(15,158,213,.25);border-radius:12px; }
+.pjm-right h3 { font-size:1rem;margin-bottom:1.2rem; }
+.pjm-step { display:flex;align-items:flex-start;gap:12px;margin-bottom:10px; }
+.pjm-day { font-family:'DM Mono',monospace;font-size:.65rem;color:var(--sky);min-width:72px;padding-top:1px; }
+.pjm-text { font-size:.82rem;color:var(--text-muted);line-height:1.45; }
+
+.pjm-note { margin-top:1.2rem;padding:1rem 1.4rem;background:rgba(233,113,50,.08);border-radius:8px;font-size:.8rem;color:rgba(232,244,241,.6);line-height:1.55; }
+.pjm-note strong { color:var(--amber); }
+
+/* COVERAGE EXPLAIN */
+.coverage-explain {
+  display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:3rem;
+}
+.ce-card { padding:1.8rem;background:var(--card-bg);border:1px solid var(--border);border-radius:12px; }
+.ce-card h4 { font-size:.95rem;margin-bottom:.8rem; }
+.ce-card p { font-size:.83rem;color:var(--text-muted);line-height:1.65; }
+
+@media(max-width:900px){
+  .clocks-grid { grid-template-columns:repeat(2,1fr); }
+  .clock:nth-child(4n) { border-right:1.5px solid var(--border); }
+  .clock:nth-child(2n) { border-right:none; }
+  .pjm-module { grid-template-columns:1fr; }
+  .coverage-explain { grid-template-columns:1fr; }
+}
+@media(max-width:500px){
+  .clocks-grid { grid-template-columns:1fr; }
+  .clock { border-right:none !important; }
+}
+</style>
+</head>
+<body>
+<div class="glow glow-tl"></div>
+<div class="glow glow-br"></div>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">revolve<span>.iq</span></a>
+  <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+    <li><a href="challenge.html">The Challenge</a></li>
+    <li><a href="framework.html">Framework</a></li>
+    <li><a href="clocks.html">8 Clocks</a></li>
+    <li><a href="poc.html">POC</a></li>
+    <li><a href="business-case.html">Business Case</a></li>
+    <li><a href="contact.html" class="nav-cta">Start the POC</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  <div class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">The Framework</span>
+      <h1>8 Clocks. <em class="accent">One Repayment Goal.</em></h1>
+      <p class="section-lead">Every clock feeds a single master metric — the Day 90 repayment coverage ratio. Each process window is tracked, thresholded, and owned. Nothing runs blind.</p>
+    </div>
+  </div>
+
+  <!-- THE 8 CLOCKS -->
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">All 8 Reconciliation Clocks</span>
+      <h2>Mapped, Timed, and <em class="accent">Connected</em></h2>
+      <div class="clocks-grid">
+        <div class="clock reveal">
+          <div class="clock-num">01</div>
+          <div class="clock-name">Commodity vs. Billed</div>
+          <div class="clock-win">Day 0 – 90</div>
+          <div class="clock-desc">Over/under buy versus actual billed usage. Drift here creates cost overruns that compress margin and reduce cash available for repayment.</div>
+        </div>
+        <div class="clock reveal">
+          <div class="clock-num">02</div>
+          <div class="clock-name">Enrollment to First Bill</div>
+          <div class="clock-win">Day 0 – 35</div>
+          <div class="clock-desc">Tracks enrollment churn and drop-out rate. Every failed enrollment is revenue that never enters the cycle — a permanent cash hole.</div>
+        </div>
+        <div class="clock reveal">
+          <div class="clock-num">03</div>
+          <div class="clock-name">Bill Cycle + Unbilled Usage</div>
+          <div class="clock-win">Day 15 – 55</div>
+          <div class="clock-desc">Unbilled usage exceptions must resolve before invoicing. An unbilled rate above 8% triggers alert thresholds and requires active remediation within 3 business days.</div>
+        </div>
+        <div class="clock reveal">
+          <div class="clock-num">04</div>
+          <div class="clock-name">Receivables + Cash App</div>
+          <div class="clock-win">Day 30 – 90</div>
+          <div class="clock-desc">DSO exceeding 40 days = AR lockup. Cash applied late doesn't count as collected until booked. Tracks payment application lag across all customer accounts.</div>
+        </div>
+        <div class="clock reveal">
+          <div class="clock-num">05</div>
+          <div class="clock-name">TDU Payments + Back Billing</div>
+          <div class="clock-win">Day 40 – 90</div>
+          <div class="clock-desc">TDSP usage reconciliation to the billing register. Back billing corrections can re-open settled periods and create unexpected cash swings late in the window.</div>
+        </div>
+        <div class="clock reveal">
+          <div class="clock-num">06</div>
+          <div class="clock-name">EDI Transaction Recon</div>
+          <div class="clock-win">Day 0 – 70</div>
+          <div class="clock-desc">EDI transactions reconciled to billing systems. Rejected or unacknowledged EDI files delay enrollment and billing cycles — the ripple effect touches Clocks 2 and 3.</div>
+        </div>
+        <div class="clock master reveal">
+          <div class="ck-badge"><span class="badge badge-teal">Master</span></div>
+          <div class="clock-num">07</div>
+          <div class="clock-name">Revolver Repayment</div>
+          <div class="clock-win">Day 0 – 90</div>
+          <div class="clock-desc">The master clock. All six operational clocks and the PJM clock feed this single metric. Coverage ratio must reach ≥ 1.0× by Day 87 to ensure Day 90/91 repayment.</div>
+        </div>
+        <div class="clock pjm reveal">
+          <div class="ck-badge"><span class="badge badge-amber">PJM Only</span></div>
+          <div class="clock-num">08</div>
+          <div class="clock-name">PJM Utility Billing + Remit</div>
+          <div class="clock-win">Day 20 – 70</div>
+          <div class="clock-desc">Usage billing, payment tracking, and reconciliation in utility consolidated billing markets. The LDC controls collection — the REP cannot accelerate cash it doesn't receive.</div>
+        </div>
+      </div>
+
+      <!-- COVERAGE EXPLAIN -->
+      <div class="coverage-explain">
+        <div class="ce-card reveal">
+          <h4>Why one master metric?</h4>
+          <p>All 8 clocks ultimately answer one question: will we have enough cash collected to repay the draw balance in full by Day 90? The coverage ratio (Net Collections ÷ Outstanding Draw Balance) collapses 8 processes into a single daily number that treasury, operations, and lenders can all track in real time.</p>
+        </div>
+        <div class="ce-card reveal">
+          <h4>What the RAG system does</h4>
+          <p>Each clock has thresholds — KPI values that trigger Amber or Red alerts before the problem reaches the master clock. An unbilled rate of 8%+ triggers Clock 3. DSO above 40 days triggers Clock 4. This early-warning system gives owners 30–45 days to correct course — not 5.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- PJM MODULE -->
+  <section class="section" id="pjm">
+    <div class="wrap">
+      <span class="eyebrow">Clock 8 — PJM-Specific Module</span>
+      <h2>The Hidden <em class="accent">Cash Trap</em> in PJM</h2>
+      <p class="section-lead">In utility consolidated billing markets, the LDC — not the REP — controls collection and remittance. This creates a structural blind spot that compounds every quarter without visibility.</p>
+      <div class="pjm-module">
+        <div class="pjm-left reveal">
+          <div class="badge badge-amber" style="margin-bottom:1rem">PJM UB Model Only</div>
+          <h3>What Clock 8 Monitors</h3>
+          <p>Clock 8 tracks six distinct data points that no other clock covers: submission confirmation, remittance ETA by LDC, variance vs. billed ($), dispute tracking & coverage impact, and the structural lag between customer payment and REP receipt.</p>
+          <div class="pjm-stats">
+            <div class="pjm-stat"><div class="num">6.7%</div><div class="lbl">Coverage drop per 10-day delay on $2M</div></div>
+            <div class="pjm-stat"><div class="num">50+</div><div class="lbl">Days of blind spot in the UB cycle</div></div>
+            <div class="pjm-stat"><div class="num">$500K+</div><div class="lbl">Typical dispute exposure per cycle</div></div>
+          </div>
+          <div class="pjm-note">
+            <strong>REP has no collection lever during the utility cycle.</strong> Utility deductions with 60+ day resolution SLAs can surface well after Day 90 — creating true-up exposure that hits the next revolver cycle.
+          </div>
+        </div>
+        <div class="pjm-right reveal">
+          <h3>Clock 8 — The UB Cycle Flow</h3>
+          <div class="pjm-step"><div class="pjm-day">Day 20–25</div><div class="pjm-text">REP submits usage data to the utility (LDC)</div></div>
+          <div class="pjm-step"><div class="pjm-day">Day 25–35</div><div class="pjm-text">Utility runs its billing cycle — REP has no visibility</div></div>
+          <div class="pjm-step"><div class="pjm-day">Day 35–55</div><div class="pjm-text">Customer pays the utility directly — cash does not flow to REP</div></div>
+          <div class="pjm-step"><div class="pjm-day">Day 45–70</div><div class="pjm-text">Utility remits to REP — timing varies by LDC, typically 30–45 day lag</div></div>
+          <div class="pjm-step"><div class="pjm-day">Day 50–60</div><div class="pjm-text">REP reconciles remittance vs. billed amount — disputes flagged</div></div>
+          <div class="pjm-step"><div class="pjm-day">Day 55–90+</div><div class="pjm-text">Disputes resolved — resolution SLA often exceeds 60 days</div></div>
+          <div style="margin-top:1.4rem;padding:1rem 1.2rem;background:rgba(15,158,213,.07);border:1px solid rgba(15,158,213,.2);border-radius:8px;font-size:.8rem;color:var(--text-muted);line-height:1.55">
+            Capacity obligation charges, RPM true-ups, and congestion costs keep rising. Without Clock 8, each quarter adds unbudgeted exposure that only surfaces at final ISO statement.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="background:rgba(14,40,65,0.35);border-top:1px solid var(--border);padding:60px 0">
+    <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:2rem">
+      <div>
+        <h3>Ready to put all 8 clocks to work?</h3>
+        <p style="font-size:.9rem;color:var(--text-muted);margin-top:.4rem">The POC instruments all 8 clocks on a live portfolio segment in 12 weeks.</p>
+      </div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap">
+        <a href="poc.html" class="btn btn-primary">View POC Proposal →</a>
+        <a href="framework.html" class="btn btn-ghost">Back to Framework</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div><div class="footer-logo">revolve<span>.iq</span></div><p class="footer-tagline">Revenue Cycle & Working Capital Management · Proof of Concept Proposal</p></div>
+    <div class="footer-col"><h5>The Problem</h5><ul><li><a href="challenge.html">The Challenge</a></li><li><a href="challenge.html#stakes">Stakes & Costs</a></li><li><a href="challenge.html#timeline">90-Day Timeline</a></li></ul></div>
+    <div class="footer-col"><h5>The Solution</h5><ul><li><a href="framework.html">Framework Overview</a></li><li><a href="clocks.html">8 Clocks</a></li><li><a href="clocks.html#pjm">PJM Module</a></li></ul></div>
+    <div class="footer-col"><h5>The POC</h5><ul><li><a href="poc.html">POC Scope</a></li><li><a href="poc.html#timeline">Sprint Timeline</a></li><li><a href="poc.html#success">Success Criteria</a></li><li><a href="business-case.html">Business Case</a></li><li><a href="contact.html">Start the POC</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 revolve.iq</span><span>Revenue Cycle & Working Capital Management</span></div>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The POC — revolve.iq</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.scope-2col { display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:3rem; }
+.scope-list {
+  background:var(--card-bg);border:1px solid var(--border);border-radius:12px;overflow:hidden;
+}
+.scope-head {
+  padding:1rem 1.6rem;border-bottom:1px solid var(--border);
+  font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;
+}
+.scope-head.teal { color:var(--teal-bright);background:rgba(0,168,134,.07); }
+.scope-head.sky  { color:var(--sky);background:rgba(15,158,213,.07); }
+.scope-body { padding:1.5rem 1.6rem; }
+
+/* SPRINTS */
+.sprints { display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;border:1.5px solid var(--border);border-radius:12px;overflow:hidden;margin-top:3rem; }
+.sprint { padding:2rem 1.6rem;background:var(--card-bg);border-right:1.5px solid var(--border);transition:background .25s; }
+.sprint:last-child { border-right:none; }
+.sprint:hover { background:var(--card-hover); }
+.sp-n { font-family:'DM Mono',monospace;font-size:.67rem;color:var(--teal);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.4rem; }
+.sp-w { font-family:'DM Mono',monospace;font-size:.65rem;color:var(--text-dim);margin-bottom:1rem; }
+.sprint h4 { font-size:.95rem;margin-bottom:1.1rem;line-height:1.3; }
+
+/* SUCCESS CRITERIA */
+.criteria { display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem; }
+.crit {
+  background:var(--card-bg);border:1px solid var(--border);border-radius:12px;
+  padding:1.8rem;transition:border-color .3s;
+}
+.crit:hover { border-color:rgba(0,168,134,.38); }
+.crit-n { font-family:'DM Mono',monospace;font-size:.65rem;color:var(--teal);margin-bottom:.9rem;display:block; }
+.crit h4 { font-size:.92rem;margin-bottom:.55rem; }
+.crit p { font-size:.81rem;color:var(--text-muted);line-height:1.62; }
+
+.deliverables-box {
+  margin-top:2rem;padding:1.4rem 2rem;
+  background:rgba(0,168,134,.07);border:1px solid rgba(0,168,134,.22);border-radius:10px;
+  font-size:.88rem;color:var(--text-muted);line-height:1.65;
+}
+.deliverables-box strong { color:var(--teal-bright); }
+
+.out-of-scope {
+  padding:1rem 1.6rem;background:rgba(14,40,65,.3);border:1px solid var(--border);border-radius:8px;
+  font-size:.82rem;color:var(--text-dim);margin-top:1rem;
+}
+.out-of-scope strong { color:rgba(232,244,241,.5); }
+
+@media(max-width:800px){
+  .scope-2col { grid-template-columns:1fr; }
+  .sprints { grid-template-columns:1fr 1fr; }
+  .sprint:nth-child(2) { border-right:none; }
+  .sprint:nth-child(3) { border-right:1.5px solid var(--border); }
+  .criteria { grid-template-columns:1fr 1fr; }
+}
+@media(max-width:500px){
+  .sprints { grid-template-columns:1fr; }
+  .sprint { border-right:none !important; border-bottom:1.5px solid var(--border); }
+  .sprint:last-child { border-bottom:none; }
+  .criteria { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+<div class="glow glow-tl"></div>
+<div class="glow glow-br"></div>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">revolve<span>.iq</span></a>
+  <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+    <li><a href="challenge.html">The Challenge</a></li>
+    <li><a href="framework.html">Framework</a></li>
+    <li><a href="clocks.html">8 Clocks</a></li>
+    <li><a href="poc.html">POC</a></li>
+    <li><a href="business-case.html">Business Case</a></li>
+    <li><a href="contact.html" class="nav-cta">Start the POC</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  <div class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">The POC</span>
+      <h1>What We're Proposing <em class="accent">to Prove</em></h1>
+      <p class="section-lead">A focused 90-day Proof of Concept that demonstrates the full framework on a live portfolio segment — not a simulation. Real data. Real clocks. One completed revolver cycle measured end-to-end.</p>
+    </div>
+  </div>
+
+  <!-- SCOPE -->
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">POC Scope</span>
+      <h2>What's In. <em class="accent">What We Need.</em></h2>
+      <div class="scope-2col">
+        <div class="scope-list reveal">
+          <div class="scope-head teal">POC In Scope</div>
+          <div class="scope-body">
+            <ul class="dot-list">
+              <li><strong style="color:#fff">Live portfolio segment</strong> — 1 active revolver cycle, ~500–2,000 customer accounts</li>
+              <li><strong style="color:#fff">All 8 clocks instrumented</strong> with daily KPI capture from existing source systems</li>
+              <li><strong style="color:#fff">Coverage model live</strong> — daily ratio update + Day 90 projection refreshed automatically</li>
+              <li><strong style="color:#fff">Escalation protocol active</strong> — Day 60 and Day 75 checkpoints executed per playbook</li>
+              <li><strong style="color:#fff">PJM Clock 8 included</strong> — UB model remittance tracking for PJM footprint accounts</li>
+            </ul>
+          </div>
+        </div>
+        <div class="scope-list reveal">
+          <div class="scope-head sky">What We Need From You</div>
+          <div class="scope-body">
+            <ul class="dot-list">
+              <li><strong style="color:#fff">System access (read-only)</strong> — CIS, ETRM, EDI gateway, AR, PJM eTools export</li>
+              <li><strong style="color:#fff">Data extract schedule</strong> — daily automated exports or API connections from each system</li>
+              <li><strong style="color:#fff">Cross-functional participation</strong> — Treasury, Billing Ops, AR, EDI, Energy Settlements</li>
+              <li><strong style="color:#fff">Executive sponsor</strong> — CFO or VP Treasury to chair the Day 60 and 75 checkpoints</li>
+              <li><strong style="color:#fff">Weekly governance cadence</strong> — Tuesday standing meeting per playbook agenda</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="out-of-scope"><strong>Out of scope for POC:</strong>&nbsp; New system builds &nbsp;·&nbsp; ERP integration &nbsp;·&nbsp; Production infrastructure &nbsp;·&nbsp; Customer-facing changes</div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SPRINTS -->
+  <section class="section" id="timeline">
+    <div class="wrap">
+      <span class="eyebrow">12-Week Timeline</span>
+      <h2>Four Sprints. <em class="accent">One Completed Cycle.</em></h2>
+      <p class="section-lead">Four focused sprints. Each with defined deliverables, clock owners aligned, and a governance touchpoint.</p>
+      <div class="sprints">
+        <div class="sprint reveal">
+          <div class="sp-n">Sprint 01</div>
+          <div class="sp-w">Weeks 1–2</div>
+          <h4>Setup &amp; Instrumentation</h4>
+          <ul class="arrow-list">
+            <li>System access + data extract validation</li>
+            <li>Clock monitoring configuration</li>
+            <li>Coverage model baseline established</li>
+            <li>POC governance kickoff meeting</li>
+          </ul>
+        </div>
+        <div class="sprint reveal">
+          <div class="sp-n">Sprint 02</div>
+          <div class="sp-w">Weeks 3–5</div>
+          <h4>Active Monitoring Launch</h4>
+          <ul class="arrow-list">
+            <li>All 8 clocks live with daily KPI feed</li>
+            <li>First weekly governance meeting held</li>
+            <li>Coverage ratio dashboard deployed</li>
+            <li>Escalation protocol activated</li>
+          </ul>
+        </div>
+        <div class="sprint reveal">
+          <div class="sp-n">Sprint 03</div>
+          <div class="sp-w">Weeks 6–10</div>
+          <h4>Full Cycle Measurement</h4>
+          <ul class="arrow-list">
+            <li>Track live revolver draw to repayment</li>
+            <li>Day 60 checkpoint execution</li>
+            <li>Day 75 readiness review</li>
+            <li>PJM utility remittance reconciled</li>
+          </ul>
+        </div>
+        <div class="sprint reveal">
+          <div class="sp-n">Sprint 04</div>
+          <div class="sp-w">Weeks 11–12</div>
+          <h4>Results &amp; Readout</h4>
+          <ul class="arrow-list">
+            <li>Coverage ratio vs. target analysis</li>
+            <li>Clock-by-clock performance report</li>
+            <li>ROI and risk reduction quantified</li>
+            <li>Full rollout recommendation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SUCCESS CRITERIA -->
+  <section class="section" id="success">
+    <div class="wrap">
+      <span class="eyebrow">Success Criteria</span>
+      <h2>How We Define <em class="accent">POC Success</em></h2>
+      <p class="section-lead">We will declare the POC successful if we can answer YES to all of the following by Week 12:</p>
+      <div class="criteria">
+        <div class="crit reveal">
+          <span class="crit-n">01 / 06</span>
+          <h4>Did we see risk before Day 75?</h4>
+          <p>At least one clock triggered an amber or red alert that was acted upon before the repayment risk window opened.</p>
+        </div>
+        <div class="crit reveal">
+          <span class="crit-n">02 / 06</span>
+          <h4>Was coverage ratio monitored daily?</h4>
+          <p>The coverage ratio was updated and distributed every business day without manual intervention.</p>
+        </div>
+        <div class="crit reveal">
+          <span class="crit-n">03 / 06</span>
+          <h4>Did escalations happen on time?</h4>
+          <p>Day 60 and Day 75 checkpoints executed per playbook, with documented owner responses within SLA.</p>
+        </div>
+        <div class="crit reveal">
+          <span class="crit-n">04 / 06</span>
+          <h4>Was unbilled balance controlled?</h4>
+          <p>Unbilled balance remained below 8% of cycle revenue, with any breach resolved within 3 business days.</p>
+        </div>
+        <div class="crit reveal">
+          <span class="crit-n">05 / 06</span>
+          <h4>Was PJM settled without surprise?</h4>
+          <p>ISO charges accrued within 5% of actuals at final statement, with no unbudgeted true-up over $200K.</p>
+        </div>
+        <div class="crit reveal">
+          <span class="crit-n">06 / 06</span>
+          <h4>Was the revolver repaid on time?</h4>
+          <p>Coverage ratio reached 1.0× by Day 87 and the full draw balance was repaid on or before Day 90/91.</p>
+        </div>
+      </div>
+      <div class="deliverables-box">
+        <strong>POC Deliverables:</strong>&nbsp; Live dashboard &nbsp;·&nbsp; Coverage model &nbsp;·&nbsp; Clock performance report &nbsp;·&nbsp; Escalation log &nbsp;·&nbsp; Full rollout recommendation with ROI analysis
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="background:rgba(14,40,65,0.35);border-top:1px solid var(--border);padding:60px 0">
+    <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:2rem">
+      <div>
+        <h3>Is the POC right for your portfolio?</h3>
+        <p style="font-size:.9rem;color:var(--text-muted);margin-top:.4rem">Compare POC cost against the cost of a single missed repayment.</p>
+      </div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap">
+        <a href="business-case.html" class="btn btn-primary">See the Business Case →</a>
+        <a href="contact.html" class="btn btn-ghost">Start the Conversation</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div><div class="footer-logo">revolve<span>.iq</span></div><p class="footer-tagline">Revenue Cycle & Working Capital Management · Proof of Concept Proposal</p></div>
+    <div class="footer-col"><h5>The Problem</h5><ul><li><a href="challenge.html">The Challenge</a></li><li><a href="challenge.html#stakes">Stakes & Costs</a></li><li><a href="challenge.html#timeline">90-Day Timeline</a></li></ul></div>
+    <div class="footer-col"><h5>The Solution</h5><ul><li><a href="framework.html">Framework Overview</a></li><li><a href="clocks.html">8 Clocks</a></li><li><a href="clocks.html#pjm">PJM Module</a></li></ul></div>
+    <div class="footer-col"><h5>The POC</h5><ul><li><a href="poc.html">POC Scope</a></li><li><a href="poc.html#timeline">Sprint Timeline</a></li><li><a href="poc.html#success">Success Criteria</a></li><li><a href="business-case.html">Business Case</a></li><li><a href="contact.html">Start the POC</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 revolve.iq</span><span>Revenue Cycle & Working Capital Management</span></div>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>

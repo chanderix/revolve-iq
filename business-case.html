@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Case — revolve.iq</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+/* VS LAYOUT */
+.vs-wrap { display:grid;grid-template-columns:1fr 56px 1fr;gap:0;margin-top:3rem;align-items:start; }
+.vs-col { background:var(--card-bg);border:1px solid var(--border);border-radius:12px;overflow:hidden; }
+.vs-col.right { border-color:rgba(0,168,134,.32);background:rgba(0,168,134,.04); }
+.vs-head { padding:1.1rem 1.8rem;border-bottom:1px solid var(--border);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em; }
+.vs-col:not(.right) .vs-head { color:var(--red-alert);background:rgba(248,113,113,.06); }
+.vs-col.right .vs-head { color:var(--teal-bright);background:rgba(0,168,134,.07); }
+.vs-body { padding:1.5rem 1.8rem;display:flex;flex-direction:column;gap:12px; }
+.vs-item { display:flex;gap:10px;align-items:flex-start; }
+.vs-item-icon { font-size:1rem;flex-shrink:0;margin-top:1px; }
+.vs-item-text h5 { font-size:.88rem;font-weight:600;margin-bottom:.2rem; }
+.vs-col:not(.right) .vs-item-text h5 { color:rgba(248,113,113,.85); }
+.vs-col.right .vs-item-text h5 { color:rgba(74,222,128,.85); }
+.vs-item-text p { font-size:.78rem;color:var(--text-dim);line-height:1.5; }
+.vs-divider { display:flex;align-items:center;justify-content:center; }
+.vs-vs { font-size:.7rem;font-weight:700;color:rgba(232,244,241,.2);letter-spacing:.1em;text-transform:uppercase; }
+
+/* VALUE NUMBERS */
+.value-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem; }
+.val-card { padding:1.8rem;background:var(--card-bg);border:1px solid rgba(0,168,134,.2);border-radius:12px;text-align:center; }
+.val-num { font-family:'DM Mono',monospace;font-size:2rem;font-weight:500;color:var(--teal-bright);line-height:1;margin-bottom:.4rem; }
+.val-lbl { font-size:.78rem;color:var(--text-muted); }
+
+/* URGENCY */
+.urgency-cols { display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:3rem; }
+.urg-card { padding:1.8rem;background:var(--card-bg);border:1px solid var(--border);border-radius:12px;display:flex;gap:1.2rem;align-items:flex-start;transition:border-color .3s; }
+.urg-card:hover { border-color:rgba(0,168,134,.35); }
+.urg-icon { font-size:1.5rem;flex-shrink:0; }
+.urg-card h4 { font-size:.95rem;margin-bottom:.4rem; }
+.urg-card p { font-size:.82rem;color:var(--text-muted);line-height:1.6; }
+
+.biz-foot {
+  margin-top:2.5rem;padding:1.6rem 2rem;
+  background:rgba(0,168,134,.07);border:1px solid rgba(0,168,134,.24);border-radius:10px;
+  font-size:.9rem;color:rgba(232,244,241,.75);line-height:1.68;
+}
+.biz-foot strong { color:var(--teal-bright); }
+
+@media(max-width:800px){
+  .vs-wrap { grid-template-columns:1fr;gap:1.5rem; }
+  .vs-divider { display:none; }
+  .value-grid { grid-template-columns:1fr 1fr; }
+  .urgency-cols { grid-template-columns:1fr; }
+}
+@media(max-width:500px){ .value-grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="glow glow-tl"></div>
+<div class="glow glow-br"></div>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">revolve<span>.iq</span></a>
+  <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+    <li><a href="challenge.html">The Challenge</a></li>
+    <li><a href="framework.html">Framework</a></li>
+    <li><a href="clocks.html">8 Clocks</a></li>
+    <li><a href="poc.html">POC</a></li>
+    <li><a href="business-case.html">Business Case</a></li>
+    <li><a href="contact.html" class="nav-cta">Start the POC</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  <div class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">Business Case</span>
+      <h1>The Cost of <em class="accent">Not Acting</em></h1>
+      <p class="section-lead">A 12-week POC costs a fraction of one missed repayment. The framework pays for itself the first time it catches a Day 60 shortfall — and the downside of not having it is a facility termination event.</p>
+    </div>
+  </div>
+
+  <!-- VS -->
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">Cost vs. Value</span>
+      <h2>Breach Exposure <em class="accent">vs.</em> Framework Value</h2>
+      <div class="vs-wrap">
+        <div class="vs-col reveal">
+          <div class="vs-head">Cost of a Repayment Breach</div>
+          <div class="vs-body">
+            <div class="vs-item"><div class="vs-item-icon">💥</div><div class="vs-item-text"><h5>Lender default event</h5><p>Facility termination + penalty interest. The revolver is gone — and so is the business model that depends on it.</p></div></div>
+            <div class="vs-item"><div class="vs-item-icon">🔒</div><div class="vs-item-text"><h5>AR lien enforcement</h5><p>Lender seizes the retail AR portfolio. Customer receivables — the core asset — are no longer under REP control.</p></div></div>
+            <div class="vs-item"><div class="vs-item-icon">🚨</div><div class="vs-item-text"><h5>Emergency bridge funding</h5><p>$500K–$2M+ in distressed terms. Short-notice capital at punishing rates, if available at all.</p></div></div>
+            <div class="vs-item"><div class="vs-item-icon">🔧</div><div class="vs-item-text"><h5>Operational disruption</h5><p>Customer service degradation, supplier contract uncertainty, procurement pipeline stall.</p></div></div>
+            <div class="vs-item"><div class="vs-item-icon">📋</div><div class="vs-item-text"><h5>Regulatory exposure</h5><p>PUCT / PUC compliance flags triggered by financial instability. Retail license risk.</p></div></div>
+            <div class="vs-item"><div class="vs-item-icon">📉</div><div class="vs-item-text"><h5>Reputational damage</h5><p>Counterparty and customer confidence loss. Supplier terms worsen. Acquisition channel dries up.</p></div></div>
+          </div>
+        </div>
+        <div class="vs-divider"><div class="vs-vs">VS</div></div>
+        <div class="vs-col right reveal">
+          <div class="vs-head">Value of the Framework</div>
+          <div class="vs-body">
+            <div class="vs-item"><div class="vs-item-icon">✅</div><div class="vs-item-text"><h5>Coverage ratio always current</h5><p>No surprise at Day 89. Treasury knows daily whether repayment is on track — 90 days of clarity, not one moment of panic.</p></div></div>
+            <div class="vs-item"><div class="vs-item-icon">⏰</div><div class="vs-item-text"><h5>Day 60 early warning</h5><p>30 days to course-correct. Billing acceleration, DSO push, dispute prioritization — all viable at Day 60, impossible at Day 85.</p></div></div>
+            <div class="vs-item"><div class="vs-item-icon">💰</div><div class="vs-item-text"><h5>Unbilled balance controlled</h5><p>Billing cash accelerated 5–10 days. Every unbilled exception resolved before it becomes a late payment.</p></div></div>
+            <div class="vs-item"><div class="vs-item-icon">📈</div><div class="vs-item-text"><h5>DSO discipline</h5><p>1–3 day DSO improvement = $150K–$500K freed per cycle. Collections rigor compounds over time.</p></div></div>
+            <div class="vs-item"><div class="vs-item-icon">⚡</div><div class="vs-item-text"><h5>PJM reserve accuracy</h5><p>Eliminate $500K+ true-up shocks. ISO charges accrued within 5% of actuals — no budget surprises at final statement.</p></div></div>
+            <div class="vs-item"><div class="vs-item-icon">🤝</div><div class="vs-item-text"><h5>Lender reporting automated</h5><p>Facility renewal confidence built. Structured reporting earns better terms, lower collateral thresholds, preferred supplier status.</p></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="biz-foot">
+        <strong>A 12-week POC costs a fraction of one missed repayment.</strong> The framework pays for itself the first time it catches a Day 60 shortfall and gives treasury 30 days to act. REPs with institutional-grade working capital discipline earn better facility terms, lower collateral thresholds, and preferred supplier status.
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- VALUE NUMBERS -->
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">Quantified Value</span>
+      <h2>What the Framework <em class="accent">Unlocks</em></h2>
+      <p class="section-lead">Conservative estimates on a $30M retail energy portfolio. Actual value compounds with each subsequent revolver cycle.</p>
+      <div class="value-grid">
+        <div class="val-card reveal">
+          <div class="val-num">$150K–<br>$500K</div>
+          <div class="val-lbl">freed per cycle from 1–3 day DSO improvement</div>
+        </div>
+        <div class="val-card reveal">
+          <div class="val-num">$500K+</div>
+          <div class="val-lbl">PJM true-up shocks eliminated per cycle</div>
+        </div>
+        <div class="val-card reveal">
+          <div class="val-num">5–10 days</div>
+          <div class="val-lbl">billing cash acceleration from unbilled resolution</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- URGENCY -->
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">Why This Cannot Wait</span>
+      <h2>The Next Cycle <em class="accent">Starts Now</em></h2>
+      <div class="urgency-cols">
+        <div class="urg-card reveal">
+          <div class="urg-icon">🏦</div>
+          <div>
+            <h4>Lenders Are Watching</h4>
+            <p>Post-2023, revolver counterparties conduct more rigorous mid-cycle checks. A structured framework is increasingly a facility requirement, not a nice-to-have.</p>
+          </div>
+        </div>
+        <div class="urg-card reveal">
+          <div class="urg-icon">⚡</div>
+          <div>
+            <h4>PJM Market Complexity Is Growing</h4>
+            <p>Capacity obligation charges, RPM true-ups, and congestion costs keep rising. Clock 8 exposure compounds every quarter without visibility.</p>
+          </div>
+        </div>
+        <div class="urg-card reveal">
+          <div class="urg-icon">🕐</div>
+          <div>
+            <h4>The POC Needs a Live Cycle</h4>
+            <p>Waiting another quarter pushes full rollout 90+ more days into the future. Every cycle that runs without the framework is a cycle relying on luck instead of process.</p>
+          </div>
+        </div>
+        <div class="urg-card reveal">
+          <div class="urg-icon">🏆</div>
+          <div>
+            <h4>Competitive Differentiation</h4>
+            <p>REPs with institutional-grade working capital discipline earn better facility terms, lower collateral thresholds, and preferred supplier status.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="background:rgba(14,40,65,0.35);border-top:1px solid var(--border);padding:60px 0">
+    <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:2rem">
+      <div>
+        <h3>Ready to start one conversation?</h3>
+        <p style="font-size:.9rem;color:var(--text-muted);margin-top:.4rem">Not one more missed cycle. Let's align stakeholders and kick off the POC.</p>
+      </div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap">
+        <a href="contact.html" class="btn btn-primary">Request POC Kickoff →</a>
+        <a href="poc.html" class="btn btn-ghost">Review POC Scope</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div><div class="footer-logo">revolve<span>.iq</span></div><p class="footer-tagline">Revenue Cycle & Working Capital Management · Proof of Concept Proposal</p></div>
+    <div class="footer-col"><h5>The Problem</h5><ul><li><a href="challenge.html">The Challenge</a></li><li><a href="challenge.html#stakes">Stakes & Costs</a></li><li><a href="challenge.html#timeline">90-Day Timeline</a></li></ul></div>
+    <div class="footer-col"><h5>The Solution</h5><ul><li><a href="framework.html">Framework Overview</a></li><li><a href="clocks.html">8 Clocks</a></li><li><a href="clocks.html#pjm">PJM Module</a></li></ul></div>
+    <div class="footer-col"><h5>The POC</h5><ul><li><a href="poc.html">POC Scope</a></li><li><a href="poc.html#timeline">Sprint Timeline</a></li><li><a href="poc.html#success">Success Criteria</a></li><li><a href="business-case.html">Business Case</a></li><li><a href="contact.html">Start the POC</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 revolve.iq</span><span>Revenue Cycle & Working Capital Management</span></div>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>

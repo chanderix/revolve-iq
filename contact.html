@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Start the POC — revolve.iq</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.contact-wrap {
+  display:grid;grid-template-columns:1fr 1.2fr;gap:5rem;
+  max-width:1100px;margin:0 auto;padding:80px 5%;
+  align-items:start;
+}
+
+/* STEPS */
+.steps { display:flex;flex-direction:column;gap:1.5px;border:1px solid var(--border);border-radius:12px;overflow:hidden; }
+.step { display:flex;gap:1.4rem;padding:1.6rem 1.8rem;background:var(--card-bg);border-bottom:1px solid var(--border);transition:background .25s; }
+.step:last-child { border-bottom:none; }
+.step:hover { background:var(--card-hover); }
+.step-week { font-family:'DM Mono',monospace;font-size:.63rem;color:var(--teal);text-transform:uppercase;letter-spacing:.08em;background:rgba(0,168,134,.1);border:1px solid rgba(0,168,134,.25);border-radius:4px;padding:3px 9px;white-space:nowrap;align-self:flex-start;margin-top:2px; }
+.step-body h4 { font-size:.92rem;margin-bottom:.3rem; }
+.step-body p { font-size:.8rem;color:var(--text-muted);line-height:1.55; }
+
+/* FORM */
+.contact-form { background:var(--card-bg);border:1px solid var(--border);border-radius:12px;overflow:hidden; }
+.form-head { padding:1.5rem 2rem;border-bottom:1px solid var(--border); }
+.form-head h3 { font-size:1.1rem;margin-bottom:.3rem; }
+.form-head p { font-size:.82rem;color:var(--text-muted); }
+.form-body { padding:2rem; }
+
+.field { margin-bottom:1.4rem; }
+.field label { display:block;font-size:.78rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem; }
+.field input,
+.field select,
+.field textarea {
+  width:100%;
+  background:rgba(5,21,32,.5);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:.75rem 1rem;
+  font-family:'DM Sans',sans-serif;
+  font-size:.9rem;
+  color:var(--text);
+  outline:none;
+  transition:border-color .2s;
+  appearance:none;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus { border-color:rgba(0,168,134,.5);box-shadow:0 0 0 3px rgba(0,168,134,.1); }
+.field textarea { resize:vertical;min-height:100px;line-height:1.6; }
+.field select option { background:var(--ink); }
+
+.field-row { display:grid;grid-template-columns:1fr 1fr;gap:1rem; }
+
+.submit-btn {
+  width:100%;padding:1rem;
+  background:var(--teal);color:var(--ink);
+  border:none;border-radius:8px;
+  font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:600;
+  cursor:pointer;transition:all .2s;
+  display:flex;align-items:center;justify-content:center;gap:.5rem;
+}
+.submit-btn:hover { background:var(--teal-bright);transform:translateY(-1px); }
+
+.form-note { margin-top:1rem;font-size:.75rem;color:var(--text-dim);text-align:center;line-height:1.5; }
+
+/* WHAT HAPPENS */
+.what-next { margin-top:2.5rem; }
+.what-next h4 { font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);margin-bottom:1rem; }
+.wn-item { display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;font-size:.83rem;color:var(--text-muted); }
+.wn-num { font-family:'DM Mono',monospace;font-size:.68rem;color:var(--teal);background:rgba(0,168,134,.1);border:1px solid rgba(0,168,134,.2);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:500; }
+
+/* QUOTE */
+.side-quote {
+  font-size:1.2rem;font-weight:300;line-height:1.6;
+  color:rgba(232,244,241,.75);font-style:italic;
+  border-left:3px solid var(--teal);padding-left:1.4rem;
+  margin-bottom:2.5rem;
+}
+
+.contact-stats { display:flex;flex-direction:column;gap:.8rem;margin-bottom:2.5rem; }
+.cs { display:flex;gap:1.2rem;align-items:center;padding:1rem 1.2rem;background:var(--card-bg);border:1px solid var(--border);border-radius:8px; }
+.cs-num { font-family:'DM Mono',monospace;font-size:1.4rem;font-weight:500;color:var(--teal-bright);line-height:1; }
+.cs-lbl { font-size:.8rem;color:var(--text-muted);line-height:1.4; }
+
+#success-msg { display:none;text-align:center;padding:2rem;background:rgba(0,168,134,.08);border:1px solid rgba(0,168,134,.28);border-radius:10px;margin:1rem 0; }
+#success-msg h4 { color:var(--teal-bright);font-size:1.1rem;margin-bottom:.5rem; }
+#success-msg p { font-size:.85rem;color:var(--text-muted); }
+
+@media(max-width:900px){ .contact-wrap { grid-template-columns:1fr;gap:3rem; } }
+@media(max-width:500px){ .field-row { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<div class="glow glow-tl"></div>
+<div class="glow glow-br"></div>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">revolve<span>.iq</span></a>
+  <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+    <li><a href="challenge.html">The Challenge</a></li>
+    <li><a href="framework.html">Framework</a></li>
+    <li><a href="clocks.html">8 Clocks</a></li>
+    <li><a href="poc.html">POC</a></li>
+    <li><a href="business-case.html">Business Case</a></li>
+    <li><a href="contact.html" class="nav-cta">Start the POC</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  <div class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">Next Steps</span>
+      <h1>Let's Start <em class="accent">One Conversation</em>,<br>Not One More Missed Cycle.</h1>
+      <p class="section-lead">The POC needs one live revolver cycle to measure. The sooner we begin, the sooner you have a framework standing between your lender and a Day 89 conversation you didn't want to have.</p>
+    </div>
+  </div>
+
+  <div class="contact-wrap">
+    <!-- LEFT: STEPS + CONTEXT -->
+    <div>
+      <blockquote class="side-quote reveal">"Every revolver cycle that runs without the framework is a cycle where you are relying on luck instead of process."</blockquote>
+
+      <div class="contact-stats reveal">
+        <div class="cs">
+          <div class="cs-num">12 wks</div>
+          <div class="cs-lbl">to a completed, measured revolver cycle with full clock instrumentation</div>
+        </div>
+        <div class="cs">
+          <div class="cs-num">8</div>
+          <div class="cs-lbl">clocks monitored simultaneously — all feeding the master coverage ratio</div>
+        </div>
+        <div class="cs">
+          <div class="cs-num">Day 87</div>
+          <div class="cs-lbl">target date for ≥ 1.0× coverage — 3-day buffer before the hard deadline</div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:1.5rem">
+        <span class="eyebrow">The Four-Week Launch Sequence</span>
+      </div>
+      <div class="steps reveal">
+        <div class="step">
+          <div class="step-week">This Week</div>
+          <div class="step-body"><h4>Decision to Proceed</h4><p>Stakeholder alignment and executive sponsor identified. CFO or VP Treasury confirms availability for Day 60 and 75 governance meetings.</p></div>
+        </div>
+        <div class="step">
+          <div class="step-week">Week 1</div>
+          <div class="step-body"><h4>System Access Review</h4><p>IT and operations confirm data extracts available from CIS, ETRM, EDI gateway, AR, and PJM eTools. Read-only access provisioned.</p></div>
+        </div>
+        <div class="step">
+          <div class="step-week">Week 2</div>
+          <div class="step-body"><h4>POC Kickoff Meeting</h4><p>All clock owners aligned on cadence and responsibilities. Governance calendar set. RACI finalized across Treasury, Billing Ops, AR, EDI, and Energy Settlements.</p></div>
+        </div>
+        <div class="step">
+          <div class="step-week">Week 3</div>
+          <div class="step-body"><h4>Live Monitoring Begins</h4><p>First daily dashboard published. Coverage model baseline established. First weekly governance meeting held.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: FORM -->
+    <div class="reveal">
+      <div class="contact-form">
+        <div class="form-head">
+          <h3>Request POC Kickoff</h3>
+          <p>We'll be in touch within one business day to schedule an initial call.</p>
+        </div>
+        <div class="form-body">
+          <div id="success-msg">
+            <h4>Request received ✓</h4>
+            <p>We'll be in touch within one business day to schedule your initial call and align on the first step toward live monitoring.</p>
+          </div>
+          <form id="contact-form" onsubmit="handleSubmit(event)">
+            <div class="field-row">
+              <div class="field">
+                <label>First Name</label>
+                <input type="text" placeholder="Alex" required>
+              </div>
+              <div class="field">
+                <label>Last Name</label>
+                <input type="text" placeholder="Chen" required>
+              </div>
+            </div>
+            <div class="field">
+              <label>Email Address</label>
+              <input type="email" placeholder="you@company.com" required>
+            </div>
+            <div class="field">
+              <label>Company</label>
+              <input type="text" placeholder="Your retail energy company" required>
+            </div>
+            <div class="field">
+              <label>Your Role</label>
+              <select required>
+                <option value="" disabled selected>Select your role</option>
+                <option>CFO / VP Finance</option>
+                <option>VP Treasury</option>
+                <option>Director of Operations</option>
+                <option>Energy Settlements</option>
+                <option>Billing Operations</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Portfolio Size</label>
+              <select>
+                <option value="" disabled selected>Approx. customer accounts</option>
+                <option>Under 500</option>
+                <option>500 – 2,000</option>
+                <option>2,000 – 10,000</option>
+                <option>10,000+</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Message (optional)</label>
+              <textarea placeholder="Tell us about your current revolver structure, PJM footprint, or any specific concerns you'd like to address in the POC..."></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Request POC Kickoff →</button>
+          </form>
+          <p class="form-note">For Discussion Only · This is a confidential Proof of Concept proposal. All information shared is held in strict confidence.</p>
+
+          <div class="what-next">
+            <h4>What happens next</h4>
+            <div class="wn-item"><div class="wn-num">1</div><div>We review your message and confirm receipt within one business day.</div></div>
+            <div class="wn-item"><div class="wn-num">2</div><div>We schedule a 30-minute intro call to confirm POC fit and portfolio details.</div></div>
+            <div class="wn-item"><div class="wn-num">3</div><div>We align on the launch sequence and identify your executive sponsor.</div></div>
+            <div class="wn-item"><div class="wn-num">4</div><div>Week 1 begins — system access review and data extract validation.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div><div class="footer-logo">revolve<span>.iq</span></div><p class="footer-tagline">Revenue Cycle & Working Capital Management · Proof of Concept Proposal · For Discussion</p></div>
+    <div class="footer-col"><h5>The Problem</h5><ul><li><a href="challenge.html">The Challenge</a></li><li><a href="challenge.html#stakes">Stakes & Costs</a></li><li><a href="challenge.html#timeline">90-Day Timeline</a></li></ul></div>
+    <div class="footer-col"><h5>The Solution</h5><ul><li><a href="framework.html">Framework Overview</a></li><li><a href="clocks.html">8 Clocks</a></li><li><a href="clocks.html#pjm">PJM Module</a></li></ul></div>
+    <div class="footer-col"><h5>The POC</h5><ul><li><a href="poc.html">POC Scope</a></li><li><a href="poc.html#timeline">Sprint Timeline</a></li><li><a href="poc.html#success">Success Criteria</a></li><li><a href="business-case.html">Business Case</a></li><li><a href="contact.html">Start the POC</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 revolve.iq</span><span>Revenue Cycle & Working Capital Management</span></div>
+</footer>
+
+<script src="main.js"></script>
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  document.getElementById('contact-form').style.display = 'none';
+  document.getElementById('success-msg').style.display = 'block';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Challenge — revolve.iq</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.three-cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.col-card {
+  padding: 2.4rem 2rem;
+  background: var(--card-bg);
+  transition: background 0.3s;
+}
+.col-card:hover { background: var(--card-hover); }
+.col-card + .col-card { border-left: 1.5px solid var(--border); }
+.col-icon { width: 44px; height: 44px; border-radius: 10px; display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:1.4rem; }
+.col-icon.a { background: rgba(233,113,50,0.16); }
+.col-icon.r { background: rgba(248,113,113,0.16); }
+.col-icon.b { background: rgba(15,158,213,0.16); }
+.col-card p { font-size:.87rem;color:var(--text-muted);line-height:1.7; }
+
+.stakes-2col { display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:3rem; }
+.stake {
+  display:flex;gap:1.4rem;align-items:flex-start;
+  padding:1.8rem;background:var(--card-bg);border:1px solid var(--border);border-radius:12px;
+  transition:border-color .3s;
+}
+.stake:hover { border-color:rgba(233,113,50,.35); }
+.stake-n {
+  font-family:'DM Mono',monospace;font-size:2rem;font-weight:500;
+  color:var(--amber);line-height:1;white-space:nowrap;letter-spacing:-0.04em;
+}
+.stake h4 { font-size:.9rem;margin-bottom:.3rem; }
+.stake p { font-size:.8rem;color:var(--text-muted);line-height:1.55; }
+
+/* TIMELINE */
+.tl-section { background:rgba(14,40,65,0.35);border:1px solid var(--border);border-radius:12px;padding:2.5rem;margin-top:3rem; }
+.tl-mono { font-family:'DM Mono',monospace;font-size:.7rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.12em;margin-bottom:1.6rem; }
+.tl-bars { display:flex;flex-direction:column;gap:10px;margin-bottom:2rem; }
+.tl-row { display:grid;grid-template-columns:170px 1fr;gap:12px;align-items:center; }
+.tl-lbl { font-size:.8rem;color:var(--text-muted); }
+.tl-track { background:rgba(255,255,255,0.05);border-radius:4px;height:32px;position:relative;overflow:hidden; }
+.tl-bar-fill { position:absolute;top:0;bottom:0;border-radius:4px;display:flex;align-items:center;padding:0 10px;font-size:.7rem;font-weight:600;white-space:nowrap; }
+.tl-axis { display:flex;justify-content:space-between;padding-top:8px;font-family:'DM Mono',monospace;font-size:.68rem;color:var(--text-dim); }
+.risk-row { display:flex;align-items:center;gap:12px;margin-top:1rem;font-size:.82rem;color:rgba(248,113,113,.8); }
+.risk-fill { flex:1;height:3px;background:linear-gradient(90deg,transparent,rgba(248,113,113,.5) 55%,var(--red-alert) 100%);border-radius:2px; }
+
+.alert-box {
+  background:rgba(233,113,50,0.08);border:1px solid rgba(233,113,50,0.28);border-radius:10px;
+  padding:1.4rem 1.8rem;margin-top:2.5rem;font-size:.9rem;color:rgba(232,244,241,.75);line-height:1.65;
+}
+.alert-box strong { color:var(--amber); }
+
+@media(max-width:700px){
+  .three-cols { grid-template-columns:1fr; }
+  .col-card + .col-card { border-left:none;border-top:1.5px solid var(--border); }
+  .stakes-2col { grid-template-columns:1fr; }
+  .tl-row { grid-template-columns:120px 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="glow glow-tl"></div>
+<div class="glow glow-br"></div>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">revolve<span>.iq</span></a>
+  <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+    <li><a href="challenge.html">The Challenge</a></li>
+    <li><a href="framework.html">Framework</a></li>
+    <li><a href="clocks.html">8 Clocks</a></li>
+    <li><a href="poc.html">POC</a></li>
+    <li><a href="business-case.html">Business Case</a></li>
+    <li><a href="contact.html" class="nav-cta">Start the POC</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  <div class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">The Challenge</span>
+      <h1>Retail Energy Cash Flow<br>Is <em class="accent">Uniquely Fragile</em></h1>
+      <p class="section-lead">Unlike most businesses, retail energy revenue isn't one process — it's eight interlocking clocks running in parallel across systems that don't talk to each other. When any one fails, the revolver is at risk.</p>
+    </div>
+  </div>
+
+  <!-- THREE PROBLEMS -->
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">Three Root Causes</span>
+      <h2 style="margin-bottom:2.5rem">Why the system <em class="accent">breaks down</em></h2>
+      <div class="three-cols">
+        <div class="col-card reveal">
+          <div class="col-icon a">🗂</div>
+          <h3>Fragmented Systems</h3>
+          <p>ETRM, CIS, MDM, EDI gateway, AR, PJM eTools, and treasury — each a silo. No single view of exposure across all 8 processes simultaneously. Data lives in incompatible formats, updated on different cadences, owned by different teams.</p>
+        </div>
+        <div class="col-card reveal">
+          <div class="col-icon r">⚠️</div>
+          <h3>Invisible Risk Build-Up</h3>
+          <p>A 5% unbilled rate, a 42-day DSO, and a $600K PJM accrual gap can co-exist undetected until Day 75 — when it's too late to recover. Risk doesn't announce itself. It accumulates silently across every disconnected clock.</p>
+        </div>
+        <div class="col-card reveal">
+          <div class="col-icon b">🔄</div>
+          <h3>Manual Reconciling Cadence</h3>
+          <p>Reconciliation is a combination of Power BI reports and numerous hours of manual analyst review and validation across multiple systems — just to produce a cash forecast model that is out of date the moment it's published.</p>
+        </div>
+      </div>
+      <div class="alert-box">
+        <strong>The Day 90 repayment deadline is hard.</strong> Missing it triggers late payment interest penalties that erode margins. Every day of delayed collections, missed billing, or unreconciled PJM charges directly reduces your ability to repay the credit sleeve on time.
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- STAKES -->
+  <section class="section" id="stakes">
+    <div class="wrap">
+      <span class="eyebrow">The Stakes</span>
+      <h2>Every Delay Has <em class="accent">a Dollar Sign</em></h2>
+      <p class="section-lead">These aren't hypothetical risks. In a typical $30M retail energy portfolio, here is what common process failures cost:</p>
+      <div class="stakes-2col">
+        <div class="stake reveal">
+          <div class="stake-n">$120K</div>
+          <div>
+            <h4>Cash gap per cohort</h4>
+            <p>200 customers × 1 missed LDC billing cycle. Each missed billing cycle pushes cash receipt past the Day 90 window.</p>
+          </div>
+        </div>
+        <div class="stake reveal">
+          <div class="stake-n">$250K</div>
+          <div>
+            <h4>Unbilled at 5% rate</h4>
+            <p>On a $5M/month book — not collectible within the cycle. Unbilled revenue that can't be invoiced can't be collected.</p>
+          </div>
+        </div>
+        <div class="stake reveal">
+          <div class="stake-n">$2M+</div>
+          <div>
+            <h4>PJM true-up surprise</h4>
+            <p>ISO charge arriving after Day 60. Capacity obligation charges, RPM true-ups, and congestion costs that weren't accrued.</p>
+          </div>
+        </div>
+        <div class="stake reveal">
+          <div class="stake-n">6.7%</div>
+          <div>
+            <h4>Coverage ratio drop</h4>
+            <p>From a 10-day utility remittance delay on a $2M payment. In a PJM UB market, the REP cannot accelerate cash it doesn't collect.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- TIMELINE -->
+  <section class="section" id="timeline">
+    <div class="wrap">
+      <span class="eyebrow">The 90-Day Window</span>
+      <h2>Collect Everything. <em class="accent">Repay in Full.</em></h2>
+      <p class="section-lead">Four overlapping process streams must all resolve before Day 90. Without unified oversight, they compound silently.</p>
+      <div class="tl-section reveal">
+        <div class="tl-mono">Process windows across the 90-day revolver cycle</div>
+        <div class="tl-bars">
+          <div class="tl-row">
+            <div class="tl-lbl">Procurement</div>
+            <div class="tl-track">
+              <div class="tl-bar-fill" style="left:0%;width:17%;background:rgba(70,120,134,0.55);color:rgba(232,244,241,.8)">Day 0–15</div>
+            </div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-lbl">Enrollment & Billing</div>
+            <div class="tl-track">
+              <div class="tl-bar-fill" style="left:0%;width:62%;background:rgba(15,158,213,0.38);color:rgba(232,244,241,.8)">Day 0–55</div>
+            </div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-lbl">Collections & Cash</div>
+            <div class="tl-track">
+              <div class="tl-bar-fill" style="left:33%;width:56%;background:rgba(74,222,128,0.28);color:rgba(232,244,241,.8)">Day 30–80</div>
+            </div>
+          </div>
+          <div class="tl-row">
+            <div class="tl-lbl">PJM Recon</div>
+            <div class="tl-track">
+              <div class="tl-bar-fill" style="left:44%;width:56%;background:rgba(233,113,50,0.42);color:rgba(232,244,241,.85)">Day 40–90</div>
+            </div>
+          </div>
+        </div>
+        <div class="tl-axis"><span>0</span><span>15</span><span>30</span><span>45</span><span>60</span><span>75</span><span>DAY 90 — REPAY</span></div>
+        <div class="risk-row"><span>Risk Zone ▶</span><div class="risk-fill"></div><span>By Day 75, options to close shortfalls are severely limited.</span></div>
+      </div>
+      <div style="margin-top:2rem;padding:1.4rem 1.8rem;background:var(--card-bg);border:1px solid var(--border);border-radius:10px;font-size:.88rem;color:var(--text-muted);line-height:1.65">
+        Without a unified oversight framework, these risks compound silently. Each clock that slips widens the gap between cash available and draw balance outstanding — and by Day 75, there is no lever left to pull.
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="background:rgba(14,40,65,0.35);border-top:1px solid var(--border);padding:60px 0">
+    <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:2rem">
+      <div>
+        <h3>Ready to see the solution?</h3>
+        <p style="font-size:.9rem;color:var(--text-muted);margin-top:.4rem">Three integrated layers that eliminate blind spots across all 8 clocks.</p>
+      </div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap">
+        <a href="framework.html" class="btn btn-primary">View the Framework →</a>
+        <a href="clocks.html" class="btn btn-ghost">See All 8 Clocks</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div><div class="footer-logo">revolve<span>.iq</span></div><p class="footer-tagline">Revenue Cycle & Working Capital Management · Proof of Concept Proposal</p></div>
+    <div class="footer-col"><h5>The Problem</h5><ul><li><a href="challenge.html">The Challenge</a></li><li><a href="challenge.html#stakes">Stakes & Costs</a></li><li><a href="challenge.html#timeline">90-Day Timeline</a></li></ul></div>
+    <div class="footer-col"><h5>The Solution</h5><ul><li><a href="framework.html">Framework Overview</a></li><li><a href="clocks.html">8 Clocks</a></li><li><a href="clocks.html#pjm">PJM Module</a></li></ul></div>
+    <div class="footer-col"><h5>The POC</h5><ul><li><a href="poc.html">POC Scope</a></li><li><a href="poc.html#timeline">Sprint Timeline</a></li><li><a href="poc.html#success">Success Criteria</a></li><li><a href="business-case.html">Business Case</a></li><li><a href="contact.html">Start the POC</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 revolve.iq</span><span>Revenue Cycle & Working Capital Management</span></div>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>

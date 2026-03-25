@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Framework — revolve.iq</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.fw-grid { display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;margin-top:3.5rem;align-items:start; }
+
+.layer-stack { display:flex;flex-direction:column;gap:1px;border:1px solid var(--border);border-radius:12px;overflow:hidden; }
+.fw-layer { padding:2rem;background:var(--card-bg);border-bottom:1px solid var(--border);transition:background .25s; }
+.fw-layer:last-child { border-bottom:none; }
+.fw-layer:hover { background:var(--card-hover); }
+.fw-layer-top { display:flex;align-items:center;gap:1rem;margin-bottom:1rem; }
+.fw-n { font-family:'DM Mono',monospace;font-size:.65rem;color:var(--teal);background:rgba(0,168,134,.1);border:1px solid rgba(0,168,134,.28);border-radius:5px;padding:3px 10px;letter-spacing:.05em; }
+.fw-layer h3 { font-size:1rem;margin:0; }
+.fw-layer p { font-size:.86rem;color:var(--text-muted);line-height:1.68; }
+.fw-layer ul { list-style:none;margin-top:.9rem;display:flex;flex-direction:column;gap:6px; }
+.fw-layer ul li { font-size:.81rem;color:var(--text-dim);padding-left:14px;position:relative; }
+.fw-layer ul li::before { content:'◆';position:absolute;left:0;font-size:.55rem;color:var(--teal);top:3px; }
+
+/* COVERAGE CARD */
+.cov-card { background:var(--card-bg);border:1px solid var(--border);border-radius:12px;overflow:hidden; }
+.cov-header { padding:1.8rem 2rem;border-bottom:1px solid var(--border); }
+.cov-ratio { font-family:'DM Mono',monospace;font-size:3.8rem;font-weight:500;color:var(--teal-bright);line-height:1;letter-spacing:-.05em;margin-bottom:.3rem; }
+.cov-caption { font-size:.73rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.12em; }
+.cov-body { padding:1.5rem 2rem; }
+.rag-row { display:flex;align-items:flex-start;gap:12px;padding:1rem 1.2rem;border-radius:8px;margin-bottom:10px; }
+.rag-row.g { background:rgba(74,222,128,.07);border:1px solid rgba(74,222,128,.2); }
+.rag-row.a { background:rgba(255,192,0,.07);border:1px solid rgba(255,192,0,.2); }
+.rag-row.r { background:rgba(248,113,113,.07);border:1px solid rgba(248,113,113,.2); }
+.rag-content { flex:1; }
+.rag-title { font-size:.85rem;font-weight:600;color:#fff;margin-bottom:.25rem; }
+.rag-desc { font-size:.78rem;color:var(--text-muted);line-height:1.5; }
+.rag-day { font-family:'DM Mono',monospace;font-size:.68rem;color:var(--text-dim);white-space:nowrap;margin-top:2px; }
+
+.daily-box { padding:1.5rem 2rem;border-top:1px solid var(--border);background:rgba(0,168,134,.04); }
+.daily-box .lbl { font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--text-dim);margin-bottom:.8rem; }
+.daily-item { display:flex;align-items:center;gap:10px;font-size:.83rem;color:var(--text-muted);margin-bottom:7px; }
+.daily-item span { color:var(--teal);font-size:.7rem; }
+
+/* URGENCY STRIP */
+.urgency-strip { background:rgba(233,113,50,0.07);border:1px solid rgba(233,113,50,0.25);border-radius:12px;padding:1.8rem 2.2rem;margin-top:2rem; }
+.urgency-strip p { font-size:.9rem;color:rgba(232,244,241,.7);line-height:1.65; }
+.urgency-strip strong { color:var(--amber); }
+
+/* PILLARS */
+.pillars { display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem; }
+.pillar { padding:1.8rem;background:var(--card-bg);border:1px solid var(--border);border-radius:10px;text-align:center;transition:border-color .3s; }
+.pillar:hover { border-color:rgba(0,168,134,.38); }
+.pillar-icon { font-size:2rem;margin-bottom:1rem; }
+.pillar h4 { font-size:.95rem;margin-bottom:.5rem; }
+.pillar p { font-size:.82rem;color:var(--text-muted);line-height:1.6; }
+
+@media(max-width:800px){
+  .fw-grid { grid-template-columns:1fr; }
+  .pillars { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+<div class="glow glow-tl"></div>
+<div class="glow glow-br"></div>
+
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">revolve<span>.iq</span></a>
+  <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+    <li><a href="challenge.html">The Challenge</a></li>
+    <li><a href="framework.html">Framework</a></li>
+    <li><a href="clocks.html">8 Clocks</a></li>
+    <li><a href="poc.html">POC</a></li>
+    <li><a href="business-case.html">Business Case</a></li>
+    <li><a href="contact.html" class="nav-cta">Start the POC</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+  <div class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">Our Solution</span>
+      <h1>The Revenue Cycle<br><em class="accent">Oversight Framework</em></h1>
+      <p class="section-lead">One framework. Eight synchronized clocks. Complete transparency from wholesale draw to Day 90 revolver repayment. Three integrated layers that eliminate every blind spot.</p>
+    </div>
+  </div>
+
+  <!-- THREE PILLARS -->
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">What the Framework Delivers</span>
+      <h2>Full Transparency. <em class="accent">Proactive Escalation. Lender Confidence.</em></h2>
+      <div class="pillars">
+        <div class="pillar reveal">
+          <div class="pillar-icon">👁</div>
+          <h4>Full Transparency</h4>
+          <p>Real-time visibility of every clock, every day — from first draw to final repayment.</p>
+        </div>
+        <div class="pillar reveal">
+          <div class="pillar-icon">⚡</div>
+          <h4>Proactive Escalation</h4>
+          <p>Alerts well before Day 30, not on Day 75. Structured response with named owners.</p>
+        </div>
+        <div class="pillar reveal">
+          <div class="pillar-icon">🏦</div>
+          <h4>Lender Confidence</h4>
+          <p>Structured reporting that earns facility trust and supports renewal conversations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- THREE LAYERS -->
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">Three Integrated Layers</span>
+      <h2>Introducing the <em class="accent">Framework</em></h2>
+      <div class="fw-grid">
+        <div class="layer-stack reveal">
+          <div class="fw-layer">
+            <div class="fw-layer-top">
+              <div class="fw-n">Layer 01</div>
+              <h3>8-Clock Monitoring Engine</h3>
+            </div>
+            <p>Automated daily tracking of each reconciliation clock with RAG status, KPI thresholds, and variance alerts across all source systems.</p>
+            <ul>
+              <li>Daily KPI capture from existing source systems</li>
+              <li>RAG status for each clock — Green / Amber / Red</li>
+              <li>Variance alerts with named clock owner notification</li>
+              <li>No new system builds — read-only access to existing data</li>
+            </ul>
+          </div>
+          <div class="fw-layer">
+            <div class="fw-layer-top">
+              <div class="fw-n">Layer 02</div>
+              <h3>Unified Coverage Model</h3>
+            </div>
+            <p>A single real-time view of the repayment coverage ratio (cash collections ÷ draw balance) updated daily, projected to Day 90, shared with treasury and lenders.</p>
+            <ul>
+              <li>Master KPI: Net Collections ÷ Outstanding Draw Balance</li>
+              <li>Daily projection refreshed automatically</li>
+              <li>Distributed to treasury, operations, and lender contacts</li>
+              <li>3-day buffer buffer target: ≥ 1.0× by Day 87</li>
+            </ul>
+          </div>
+          <div class="fw-layer">
+            <div class="fw-layer-top">
+              <div class="fw-n">Layer 03</div>
+              <h3>Structured Escalation Playbook</h3>
+            </div>
+            <p>Role-based RACI, defined SLA response times, and mandatory Day 45 / Day 60 / Day 75 checkpoints that convert monitoring into action.</p>
+            <ul>
+              <li>Named owners for every clock and every escalation path</li>
+              <li>Mandatory checkpoints at Day 45, 60, and 75</li>
+              <li>Defined SLA: response within N hours of alert</li>
+              <li>Lender notification protocol at Day 65 (if alert)</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- COVERAGE CARD -->
+        <div class="reveal">
+          <div class="cov-card">
+            <div class="cov-header">
+              <div class="cov-ratio">1.0×</div>
+              <div class="cov-caption">Repayment Coverage Ratio · Target by Day 87</div>
+              <div style="margin-top:1rem;font-size:.82rem;color:var(--text-muted);line-height:1.6">The coverage ratio is the master KPI. All 8 clocks exist to protect it.<br><em style="color:var(--text-dim);font-style:normal">Net Collections Received ÷ Outstanding Draw Balance</em></div>
+            </div>
+            <div class="cov-body">
+              <div class="rag-row g">
+                <div class="rag-dot g" style="width:8px;height:8px;border-radius:50%;background:var(--green-ok);flex-shrink:0;margin-top:4px"></div>
+                <div class="rag-content">
+                  <div class="rag-title">≥ 1.0× — On Track</div>
+                  <div class="rag-desc">Full repayment confirmed. Revolver resets for next cycle. No action required.</div>
+                </div>
+                <div class="rag-day">By Day 87</div>
+              </div>
+              <div class="rag-row a">
+                <div class="rag-dot a" style="width:8px;height:8px;border-radius:50%;background:var(--amber-light);flex-shrink:0;margin-top:4px"></div>
+                <div class="rag-content">
+                  <div class="rag-title">< 0.90× — Alert</div>
+                  <div class="rag-desc">Emergency review required. Lender notification by Day 65. Active remediation plan.</div>
+                </div>
+                <div class="rag-day">At Day 60</div>
+              </div>
+              <div class="rag-row r">
+                <div class="rag-dot r" style="width:8px;height:8px;border-radius:50%;background:var(--red-alert);flex-shrink:0;margin-top:4px"></div>
+                <div class="rag-content">
+                  <div class="rag-title">< 0.80× — Critical</div>
+                  <div class="rag-desc">Formal lender dialogue. Wire prep initiated. Escalation to board-level sponsor.</div>
+                </div>
+                <div class="rag-day">At Day 75</div>
+              </div>
+            </div>
+            <div class="daily-box">
+              <div class="lbl">Dashboard delivers daily</div>
+              <div class="daily-item"><span>◆</span> RAG status for all 8 clocks</div>
+              <div class="daily-item"><span>◆</span> Running coverage ratio vs. draw</div>
+              <div class="daily-item"><span>◆</span> Day 90 projection with trend line</div>
+              <div class="daily-item"><span>◆</span> Lender-ready reporting package</div>
+            </div>
+          </div>
+
+          <div class="urgency-strip">
+            <p><strong>Proactive, not reactive.</strong> The framework is designed so that Day 75 is never a surprise — it's a confirmation of a repayment already on track. Alerts fire at Day 45 or earlier, giving owners 45+ days to course-correct before the window closes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="background:rgba(14,40,65,0.35);border-top:1px solid var(--border);padding:60px 0">
+    <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:2rem">
+      <div>
+        <h3>See how all 8 clocks connect</h3>
+        <p style="font-size:.9rem;color:var(--text-muted);margin-top:.4rem">Each clock mapped with its window, KPIs, and feed into the master coverage ratio.</p>
+      </div>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap">
+        <a href="clocks.html" class="btn btn-primary">Explore All 8 Clocks →</a>
+        <a href="poc.html" class="btn btn-ghost">View POC Proposal</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div><div class="footer-logo">revolve<span>.iq</span></div><p class="footer-tagline">Revenue Cycle & Working Capital Management · Proof of Concept Proposal</p></div>
+    <div class="footer-col"><h5>The Problem</h5><ul><li><a href="challenge.html">The Challenge</a></li><li><a href="challenge.html#stakes">Stakes & Costs</a></li><li><a href="challenge.html#timeline">90-Day Timeline</a></li></ul></div>
+    <div class="footer-col"><h5>The Solution</h5><ul><li><a href="framework.html">Framework Overview</a></li><li><a href="clocks.html">8 Clocks</a></li><li><a href="clocks.html#pjm">PJM Module</a></li></ul></div>
+    <div class="footer-col"><h5>The POC</h5><ul><li><a href="poc.html">POC Scope</a></li><li><a href="poc.html#timeline">Sprint Timeline</a></li><li><a href="poc.html#success">Success Criteria</a></li><li><a href="business-case.html">Business Case</a></li><li><a href="contact.html">Start the POC</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 revolve.iq</span><span>Revenue Cycle & Working Capital Management</span></div>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>

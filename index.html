@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>revolve.iq — Revenue Cycle Intelligence</title>
+<meta name="description" content="8 clocks. One repayment goal. The Revenue Cycle Oversight Framework for retail energy operators.">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ── HERO ── */
+.hero {
+  min-height: calc(100vh - 68px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 5% 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--teal);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid rgba(0,168,134,0.32);
+  padding: 6px 14px;
+  border-radius: 100px;
+  width: fit-content;
+  margin-bottom: 2.2rem;
+}
+.hero-pill::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--teal-bright);
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.75)} }
+
+.hero h1 { max-width: 860px; }
+
+.hero-sub {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  max-width: 560px;
+  margin-bottom: 2.8rem;
+  font-weight: 300;
+  line-height: 1.75;
+}
+
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 5rem; }
+
+/* STAT STRIP */
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(14,40,65,0.35);
+  backdrop-filter: blur(10px);
+}
+.stat-item {
+  padding: 1.6rem 1.8rem;
+  border-right: 1px solid var(--border);
+}
+.stat-item:last-child { border-right: none; }
+
+/* ── PROBLEM STRIP ── */
+.problem-strip {
+  background: rgba(14,40,65,0.3);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.problem-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 5%;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 5rem;
+  align-items: center;
+}
+.problem-inner h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); }
+
+.problem-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.prob-card {
+  padding: 1.6rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: border-color 0.3s;
+}
+.prob-card:hover { border-color: rgba(0,168,134,0.35); }
+.prob-icon { font-size: 1.4rem; margin-bottom: 0.9rem; }
+.prob-card h4 { font-size: 0.9rem; margin-bottom: 0.4rem; }
+.prob-card p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+
+/* ── SOLUTION TEASER ── */
+.sol-teaser {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 90px 5%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+
+.layers {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.layer {
+  display: flex;
+  gap: 1.4rem;
+  padding: 1.7rem 1.8rem;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.25s;
+  text-decoration: none;
+}
+.layer:last-child { border-bottom: none; }
+.layer:hover { background: var(--card-hover); }
+.layer-n {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--teal);
+  background: rgba(0,168,134,0.1);
+  border: 1px solid rgba(0,168,134,0.28);
+  border-radius: 5px;
+  padding: 3px 9px;
+  white-space: nowrap;
+  align-self: flex-start;
+  margin-top: 2px;
+}
+.layer-body h4 { color: #fff; margin-bottom: 0.35rem; }
+.layer-body p { font-size: 0.83rem; color: var(--text-muted); line-height: 1.6; }
+
+/* Coverage card */
+.cov-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2.2rem;
+}
+.cov-big {
+  font-family: 'DM Mono', monospace;
+  font-size: 4.5rem;
+  font-weight: 500;
+  color: var(--teal-bright);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  text-align: center;
+  margin-bottom: 0.4rem;
+}
+.cov-sub {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 2rem;
+}
+.rag-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0.9rem 1rem;
+  border-radius: 7px;
+  font-size: 0.83rem;
+  margin-bottom: 8px;
+}
+.rag-row.g { background: rgba(74,222,128,0.07); border: 1px solid rgba(74,222,128,0.2); }
+.rag-row.a { background: rgba(255,192,0,0.07);  border: 1px solid rgba(255,192,0,0.2); }
+.rag-row.r { background: rgba(248,113,113,0.07);border: 1px solid rgba(248,113,113,0.2);}
+.rag-row-lbl { flex: 1; color: var(--text-muted); }
+.rag-day { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--text-dim); }
+
+/* ── PAGE LINKS GRID ── */
+.pages-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 5% 90px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.page-link-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2rem;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  transition: border-color 0.3s, background 0.3s, transform 0.2s;
+}
+.page-link-card:hover { border-color: rgba(0,168,134,0.42); background: var(--card-hover); transform: translateY(-2px); }
+.plc-icon { font-size: 1.8rem; }
+.plc-title { font-size: 1rem; font-weight: 600; color: #fff; }
+.plc-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.55; }
+.plc-arrow { font-size: 0.85rem; color: var(--teal); margin-top: auto; }
+
+/* urgency banner */
+.urgency-banner {
+  background: linear-gradient(135deg, rgba(14,40,65,0.8) 0%, rgba(5,21,32,0.95) 100%);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.urgency-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 5%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+.urgency-quote {
+  font-size: 1.4rem;
+  font-weight: 300;
+  line-height: 1.55;
+  color: rgba(232,244,241,0.75);
+  font-style: italic;
+  border-left: 3px solid var(--teal);
+  padding-left: 1.5rem;
+}
+.urgency-points { display: flex; flex-direction: column; gap: 1rem; }
+.up {
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+  padding: 1.2rem 1.4rem;
+  background: rgba(14,40,65,0.4);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.up-icon { font-size: 1.3rem; flex-shrink: 0; }
+.up h4 { font-size: 0.9rem; margin-bottom: 0.3rem; }
+.up p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+
+@media (max-width: 900px) {
+  .stat-strip { grid-template-columns: repeat(2,1fr); }
+  .problem-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .sol-teaser { grid-template-columns: 1fr; gap: 3rem; }
+  .pages-grid { grid-template-columns: 1fr 1fr; }
+  .urgency-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+@media (max-width: 600px) {
+  .stat-strip { grid-template-columns: 1fr 1fr; }
+  .problem-cards { grid-template-columns: 1fr; }
+  .pages-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="glow glow-tl"></div>
+<div class="glow glow-br"></div>
+
+<!-- NAV -->
+<nav class="site-nav">
+  <a href="index.html" class="nav-logo">revolve<span>.iq</span></a>
+  <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+    <li><a href="challenge.html">The Challenge</a></li>
+    <li><a href="framework.html">Framework</a></li>
+    <li><a href="clocks.html">8 Clocks</a></li>
+    <li><a href="poc.html">POC</a></li>
+    <li><a href="business-case.html">Business Case</a></li>
+    <li><a href="contact.html" class="nav-cta">Start the POC</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <section style="background: linear-gradient(180deg, rgba(14,40,65,0.18) 0%, transparent 100%);">
+    <div class="hero">
+      <div class="hero-pill">Revenue Cycle Intelligence · Proof of Concept</div>
+      <h1>The Retail Energy<br><em class="accent">Revolver Blindspot</em><br>Is Systemic.</h1>
+      <p class="hero-sub">8 disparate processes. 0 unified view. 90 days to fix it. Every day of delayed collections, missed billing, or unreconciled PJM charges erodes your ability to repay the credit sleeve.</p>
+      <div class="hero-btns">
+        <a href="poc.html" class="btn btn-primary">See the POC Proposal →</a>
+        <a href="framework.html" class="btn btn-ghost">View the Framework</a>
+      </div>
+      <div class="stat-strip reveal">
+        <div class="stat-item">
+          <div class="stat-box"><div class="num"><span class="a">8</span></div><div class="lbl">Siloed Processes</div></div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-box"><div class="num"><span class="t">0</span></div><div class="lbl">Unified View</div></div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-box"><div class="num"><span class="a">Day 90</span></div><div class="lbl">Hard Repayment Deadline</div></div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-box"><div class="num"><span class="a">$2M+</span></div><div class="lbl">PJM True-Up Exposure</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM STRIP -->
+  <div class="problem-strip">
+    <div class="problem-inner">
+      <div>
+        <span class="eyebrow">The Challenge</span>
+        <h2>Cash flow that runs on <em class="accent">eight interlocking clocks</em></h2>
+        <p style="font-size:.9rem;color:var(--text-muted);line-height:1.7;margin-top:1rem;margin-bottom:1.8rem">Unlike most businesses, retail energy revenue isn't one process — it's eight clocks running in parallel across systems that don't talk to each other.</p>
+        <a href="challenge.html" class="btn btn-ghost btn-sm">Read the full challenge →</a>
+      </div>
+      <div class="problem-cards">
+        <div class="prob-card reveal">
+          <div class="prob-icon">🗂</div>
+          <h4>Fragmented Systems</h4>
+          <p>ETRM, CIS, MDM, EDI, AR, PJM eTools, treasury — each a silo with no shared view.</p>
+        </div>
+        <div class="prob-card reveal">
+          <div class="prob-icon">⚠️</div>
+          <h4>Invisible Risk</h4>
+          <p>A 5% unbilled rate and $600K PJM gap can co-exist undetected until Day 75.</p>
+        </div>
+        <div class="prob-card reveal">
+          <div class="prob-icon">🔄</div>
+          <h4>Manual Reconciliation</h4>
+          <p>Hours of analyst review across multiple systems just to build a cash forecast model.</p>
+        </div>
+        <div class="prob-card reveal">
+          <div class="prob-icon">📅</div>
+          <h4>Hard Deadline</h4>
+          <p>Day 90 is non-negotiable. Missing it triggers penalties that directly erode margins.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOLUTION TEASER -->
+  <div class="sol-teaser">
+    <div>
+      <span class="eyebrow">Our Solution</span>
+      <h2>Three <em class="accent">Integrated Layers</em></h2>
+      <p class="section-lead" style="margin-bottom:2rem">One framework. Eight synchronized clocks. Complete transparency from wholesale draw to Day 90 revolver repayment.</p>
+      <a href="framework.html" class="btn btn-primary">Explore the Framework →</a>
+    </div>
+    <div>
+      <div class="layers reveal">
+        <a href="framework.html" class="layer">
+          <div class="layer-n">01</div>
+          <div class="layer-body">
+            <h4>8-Clock Monitoring Engine</h4>
+            <p>Automated daily tracking with RAG status, KPI thresholds, and variance alerts across all source systems.</p>
+          </div>
+        </a>
+        <a href="framework.html" class="layer">
+          <div class="layer-n">02</div>
+          <div class="layer-body">
+            <h4>Unified Coverage Model</h4>
+            <p>Real-time repayment coverage ratio (cash ÷ draw) updated daily, projected to Day 90, shared with lenders.</p>
+          </div>
+        </a>
+        <a href="framework.html" class="layer">
+          <div class="layer-n">03</div>
+          <div class="layer-body">
+            <h4>Structured Escalation Playbook</h4>
+            <p>Role-based RACI and mandatory Day 45 / 60 / 75 checkpoints that convert monitoring into action.</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="cov-card reveal" style="margin-top:1.5rem">
+        <div class="cov-big">1.0×</div>
+        <div class="cov-sub">Coverage Ratio · Target by Day 87</div>
+        <div class="rag-row g"><div class="rag-dot g"></div><div class="rag-row-lbl">≥ 1.0× On track — revolver resets</div><div class="rag-day">Day 87</div></div>
+        <div class="rag-row a"><div class="rag-dot a"></div><div class="rag-row-lbl">< 0.90× Alert — emergency review</div><div class="rag-day">Day 60</div></div>
+        <div class="rag-row r"><div class="rag-dot r"></div><div class="rag-row-lbl">< 0.80× Critical — lender dialogue</div><div class="rag-day">Day 75</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- URGENCY -->
+  <div class="urgency-banner">
+    <div class="urgency-inner">
+      <div>
+        <span class="eyebrow">Why This Cannot Wait</span>
+        <h2 style="margin-bottom:1.2rem">Every cycle without the framework is a cycle on <em class="accent">luck</em>.</h2>
+        <blockquote class="urgency-quote">"Every revolver cycle that runs without the framework is a cycle where you are relying on luck instead of process."</blockquote>
+      </div>
+      <div class="urgency-points">
+        <div class="up reveal">
+          <div class="up-icon">🏦</div>
+          <div>
+            <h4>Lenders Are Watching</h4>
+            <p>Post-2023, revolver counterparties conduct more rigorous mid-cycle checks. A structured framework is increasingly a facility requirement.</p>
+          </div>
+        </div>
+        <div class="up reveal">
+          <div class="up-icon">⚡</div>
+          <div>
+            <h4>PJM Complexity Is Growing</h4>
+            <p>Capacity obligations, RPM true-ups, and congestion costs keep rising. Clock 8 exposure compounds every quarter.</p>
+          </div>
+        </div>
+        <div class="up reveal">
+          <div class="up-icon">🕐</div>
+          <div>
+            <h4>The Next Cycle Starts Now</h4>
+            <p>The POC needs one live revolver cycle to measure. Waiting another quarter pushes full rollout 90+ days further.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATE THE SITE -->
+  <div style="max-width:1200px;margin:0 auto;padding:80px 5% 30px">
+    <span class="eyebrow">Explore revolve.iq</span>
+    <h2 style="margin-bottom:3rem">Everything you need to <em class="accent">evaluate the POC</em></h2>
+  </div>
+  <div class="pages-grid">
+    <a href="challenge.html" class="page-link-card reveal">
+      <div class="plc-icon">🔍</div>
+      <div class="plc-title">The Challenge</div>
+      <div class="plc-desc">Understand why retail energy cash flow is uniquely fragile and what's at stake in a $30M portfolio.</div>
+      <div class="plc-arrow">Challenge & Stakes →</div>
+    </a>
+    <a href="framework.html" class="page-link-card reveal">
+      <div class="plc-icon">⚙️</div>
+      <div class="plc-title">The Framework</div>
+      <div class="plc-desc">Three integrated layers that bring full transparency from wholesale draw to Day 90 repayment.</div>
+      <div class="plc-arrow">Solution Architecture →</div>
+    </a>
+    <a href="clocks.html" class="page-link-card reveal">
+      <div class="plc-icon">🕐</div>
+      <div class="plc-title">8 Clocks</div>
+      <div class="plc-desc">Each of the eight reconciliation processes mapped, timed, and connected to the master coverage ratio.</div>
+      <div class="plc-arrow">Clock Detail →</div>
+    </a>
+    <a href="poc.html" class="page-link-card reveal">
+      <div class="plc-icon">🚀</div>
+      <div class="plc-title">The POC</div>
+      <div class="plc-desc">12-week proof of concept scope, sprint plan, what we need from you, and success criteria.</div>
+      <div class="plc-arrow">POC Proposal →</div>
+    </a>
+    <a href="business-case.html" class="page-link-card reveal">
+      <div class="plc-icon">📊</div>
+      <div class="plc-title">Business Case</div>
+      <div class="plc-desc">The cost of a repayment breach vs. the value of the framework — with hard numbers.</div>
+      <div class="plc-arrow">ROI Analysis →</div>
+    </a>
+    <a href="contact.html" class="page-link-card reveal" style="border-color:rgba(0,168,134,0.35);background:rgba(0,168,134,0.06)">
+      <div class="plc-icon">📩</div>
+      <div class="plc-title">Start the POC</div>
+      <div class="plc-desc">Ready to proceed? Align stakeholders and let's get one live revolver cycle on the framework.</div>
+      <div class="plc-arrow" style="color:var(--teal-bright)">Request Kickoff →</div>
+    </a>
+  </div>
+
+</div><!-- /page -->
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">revolve<span>.iq</span></div>
+      <p class="footer-tagline">Revenue Cycle & Working Capital Management · Proof of Concept Proposal · For Discussion</p>
+    </div>
+    <div class="footer-col">
+      <h5>The Problem</h5>
+      <ul>
+        <li><a href="challenge.html">The Challenge</a></li>
+        <li><a href="challenge.html#stakes">Stakes & Costs</a></li>
+        <li><a href="challenge.html#timeline">90-Day Timeline</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>The Solution</h5>
+      <ul>
+        <li><a href="framework.html">Framework Overview</a></li>
+        <li><a href="clocks.html">8 Clocks</a></li>
+        <li><a href="clocks.html#pjm">PJM Module</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>The POC</h5>
+      <ul>
+        <li><a href="poc.html">POC Scope</a></li>
+        <li><a href="poc.html#timeline">Sprint Timeline</a></li>
+        <li><a href="poc.html#success">Success Criteria</a></li>
+        <li><a href="business-case.html">Business Case</a></li>
+        <li><a href="contact.html">Start the POC</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 revolve.iq — All rights reserved</span>
+    <span>Revenue Cycle & Working Capital Management</span>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
